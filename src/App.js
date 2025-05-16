@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { doc, setDoc } from "firebase/firestore";
-import { signInAnonymously } from "firebase/auth";
-import { db, auth } from "./firebase";
 import { useSpeechSynthesis } from "react-speech-kit";
 import Avatar from "./components/Avatar";
 
@@ -24,19 +21,12 @@ const questions = [
 ];
 
 export default function App() {
-  const [userId, setUserId] = useState(null);
   const [step, setStep] = useState("intro");
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [selected, setSelected] = useState(null);
   const [videoStream, setVideoStream] = useState(null);
   const { speak } = useSpeechSynthesis();
-
-  useEffect(() => {
-    signInAnonymously(auth).then((result) => {
-      setUserId(result.user.uid);
-    });
-  }, []);
 
   useEffect(() => {
     if (step === "intro") {
@@ -68,14 +58,14 @@ export default function App() {
     }, 1000);
   };
 
-  const saveProgress = async () => {
-    if (userId) {
-      await setDoc(doc(db, "progress", userId), {
-        lesson: "space_exploration",
-        completed: true,
-        score,
-      });
-    }
+  const saveProgress = () => {
+    const progress = {
+      lesson: "space_exploration",
+      completed: true,
+      score,
+      timestamp: new Date().toISOString()
+    };
+    localStorage.setItem("spaceLessonProgress", JSON.stringify(progress));
   };
 
   const renderIntro = () => (
@@ -117,7 +107,7 @@ export default function App() {
           <button
             key={opt}
             onClick={() => handleAnswer(opt)}
-            className={`my-1 px-4 py-2 rounded w-60 ${selected === opt ? 'bg-yellow-300' : 'bg-gray-200'}`}
+            className={\`my-1 px-4 py-2 rounded w-60 \${selected === opt ? 'bg-yellow-300' : 'bg-gray-200'}\`}
             disabled={!!selected}
           >
             {opt}

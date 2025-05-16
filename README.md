@@ -1,30 +1,17 @@
-# 🚀 Space Exploration Lesson App
+# 🚀 Space Exploration Lesson App (Local Version)
 
-A fun, interactive, AI-driven learning experience for kids on "What's New in Space Exploration".
+An interactive, AI-powered educational React app for kids, with no external backend — using only localStorage.
 
-## 🌌 Features
-- Animated avatar (speech synthesis + Framer Motion)
+## Features
+- Animated avatar using Framer Motion
+- Speech synthesis for voice delivery
 - Webcam integration
-- 2–3 minute educational lesson
-- 3-question quiz with dynamic feedback
-- Badge reward system
-- Firebase progress tracking
+- Quiz with score-based feedback
+- Progress tracking using localStorage (no Firebase)
 
-## 🛠 Tech Stack
-- React.js
-- Firebase
-- Tailwind CSS
-- React Speech Kit
-- Framer Motion
+## Setup
 
-## 🧪 Setup Instructions
-
-1. Clone the repo  
-2. Run `npm install`  
-3. Add your Firebase config to `src/firebase.js`  
-4. Run the app with `npm start`
-
-## ✅ Deployment
-Deploy with Vercel or Netlify:
-- Build Command: `npm run build`
-- Publish Directory: `build`
+```bash
+npm install
+npm start
+```
